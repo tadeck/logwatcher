@@ -95,11 +95,12 @@ def process_file(log_filename):
         lc = 0  # logs count
         cur_log = {}
         proc_status_fmt = '\r{} lines processed, {} logs found'
+        compiled_pattern = re.compile(LOG_START_PAT)
         while True:
             line = log_file.readline()
             if not line:
                 break
-            match = re.match(LOG_START_PAT, line)
+            match = compiled_pattern.match(line)
             if match:
                 if cur_log:
                     save_log(cur_log, cursor)
